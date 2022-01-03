@@ -1,17 +1,21 @@
 var exports = module.exports = {};
-var fs = require("fs").promises;
-
-const { promisify } = require('util')
-const mv = promisify(fs.rename);
+//var fs = require("fs").promises;
+var fs = require("fs");
+//const { promisify } = require('util')
+//const mv = promisify(fs.rename);
 //const mv = require('mv');
-
+const fsprom = fs.promises;
 
 async function moveFile(sourcePath, destPath, callback)
 {
   try 
   {
-    await mv(source, destPath, function() {console.log("The file has been moved")});
+    //await mv(source, destPath, function() {console.log("The file has been moved")});
    // mv(sourcePath, destPath);
+   let copyme = fsprom.copyFile(sourcePath, destPath);
+   let unlinkme =  fsprom.unlink(sourcePath);
+   await copyme;
+   await unlinkme;
   }
   catch(error)
   {
@@ -32,9 +36,3 @@ exports.callSource = function sourceFuntion(message) {
     
     console.log("operation completed");
 }
-
-
-//console.log("enter");
-//console.log(start);
-//process.exit();
-

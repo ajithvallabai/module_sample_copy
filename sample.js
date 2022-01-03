@@ -26,11 +26,3 @@ ls.on('exit', function (code) {
     console.log('child process exited with code ' + code);
     process.exit();
 });
-
-// global.currentChild.on('exit', function(code) { 
-    
-//     console.log("exit terminated");
-//     process.exit();
-// });
-
-//testScript.callSource("hey message");
