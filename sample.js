@@ -14,15 +14,26 @@ console.log('stderr: ' + data);
 
 
 
-process.on('SIGINT', function (code) {
-    testScript.callSource("hey message");
-    console.log("siginit terminated");
-    process.exit();
+process.on('SIGINT',async function (code) {
+    // testScript.callSource("hey message");
+    // console.log("siginit terminated");
+    // process.exit();
+    testScript.callSource("hey message").then(check => {
+        console.log('siginit terminated' + check);
+        process.exit(); 
+    } );
 });
 
 
+// ls.on('beforeExit', function (code) {
+//     testScript.callSource("hey message");
+//     console.log('child process exited with code ' + code);
+//     process.exit();
+// });
+
 ls.on('exit', function (code) {
-    testScript.callSource("hey message");
-    console.log('child process exited with code ' + code);
-    process.exit();
+    testScript.callSource("hey message").then(check => {
+        console.log('child process exited with code ' + code + check);
+        process.exit(); 
+    } );
 });
